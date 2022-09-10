@@ -19,7 +19,7 @@ public class Task4 {
         }
     }
 
-    public static int abs (int number) {
+    public static int abs(int number) {
         return number <= 0 ? -number : number;
     }
 }
