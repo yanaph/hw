@@ -25,3 +25,10 @@ public class Task2 {
         }
     }
 }
+/* вылетает Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+	at ua.fan.hw6.Task2.main(Task2.java:22)
+    поставив отладчик на строку 22, мы проходимся поэтапно по вложенному циклу for и замечаем, что это происходит при i=0 j=1
+	Это случается из-за того, что мы пытаемся получить значение элемента triangle[0][1], которого не существует,
+	так как triangle[0].length = 1
+	Чтоб это исправить, нам нужно сравнивать не i с triangle[i].length, а переменную j
+	*/
