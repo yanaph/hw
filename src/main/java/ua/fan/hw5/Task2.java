@@ -32,7 +32,7 @@ public class Task2 {
         }
     }
 
-    private static boolean isInDescendingOrder(int[][] array) {
+    public static boolean isInDescendingOrder(int[][] array) {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
                 if ((i != 0 & j != 0) && array[i][j - 1] < array[i][j]) {
