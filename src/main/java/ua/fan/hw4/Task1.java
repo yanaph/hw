@@ -26,6 +26,10 @@ public class Task1 {
         for (int j : arr) {
             product *= j;
         }
-        return Math.pow(product, 1D/arr.length);
+        return roundDouble(Math.pow(product, 1D/arr.length));
+    }
+
+    static double roundDouble (double value){
+        return (double)Math.round(value * 100000d) / 100000d;
     }
 }

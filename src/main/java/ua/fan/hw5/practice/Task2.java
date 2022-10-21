@@ -12,11 +12,9 @@ public class Task2 {
         int[] height = new int[25];
         fillArray(height);
         System.out.println("\nInitial array: " + Arrays.toString(height));
-        if (avgBoysHeight(height) == 0) {
-            System.out.println("There are no boys in class");
-        } else {
+
             System.out.println("Average boys' height is " + avgBoysHeight(height));
-        }
+            System.out.println("Average girls' height is " + avgGirlsHeight(height));
     }
 
     public static double avgBoysHeight(int[] array) {
@@ -24,6 +22,21 @@ public class Task2 {
         for (int j : array) {
             if (j < 0) {
                 sumHeight += -j;
+                count++;
+            }
+        }
+        if (count != 0) {
+            return sumHeight / count;
+        } else {
+            return 0;
+        }
+    }
+
+    public static double avgGirlsHeight(int[] array) {
+        double sumHeight = 0, count = 0;
+        for (int j : array) {
+            if (j > 0) {
+                sumHeight += j;
                 count++;
             }
         }
