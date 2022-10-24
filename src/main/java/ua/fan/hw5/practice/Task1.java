@@ -21,7 +21,7 @@ public class Task1 {
         }
     }
 
-    private static int sumWhereMoreThan1000(int[] array) {
+    public static int sumWhereMoreThan1000(int[] array) {
         int sum = 0;
         for (int j : array) {
             if (j > 1000) {
