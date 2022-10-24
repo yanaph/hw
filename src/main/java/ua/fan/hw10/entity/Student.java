@@ -28,7 +28,7 @@ public class Student {
     public String getGroup() {
         return group;
     }
-    
+
 
     public int getScholarship(){
         if (averageMark == 5){
