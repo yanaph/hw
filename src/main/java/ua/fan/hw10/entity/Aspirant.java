@@ -12,4 +12,14 @@ public class Aspirant extends Student {
             return 180;
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
