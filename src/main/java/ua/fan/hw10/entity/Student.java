@@ -52,4 +52,12 @@ public class Student {
     public int hashCode() {
         return Objects.hash(firstName, lastName, group, averageMark);
     }
+
+    public boolean compare (Student student){
+        if (this.hashCode() == student.hashCode()){
+            return this.equals(student);
+        } else {
+            return false;
+        }
+    }
 }
