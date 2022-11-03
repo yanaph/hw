@@ -27,11 +27,19 @@ public class MySet<T> {
 
     private boolean isUnique(T t) {
         for (T value : array) {
-            if (value == t) {
+            if (compare(value, t)) {
                 return false;
             }
         }
         return true;
+    }
+
+    public boolean compare (T t1, T t2){
+        if (t1.hashCode() == t2.hashCode()){
+            return t1.equals(t2);
+        } else {
+            return false;
+        }
     }
 
     @Override
