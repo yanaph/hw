@@ -2,7 +2,7 @@ package ua.fan.hw14;
 
 import java.util.Arrays;
 
-public class PracticeUtil {
+public class PracticeUtils {
     public static <T> void printFormattedOutput(T t) {
         System.out.println("***{" + t + "}***");
     }
@@ -15,10 +15,10 @@ public class PracticeUtil {
         printFormattedOutput(12);
         printFormattedOutput("hello");
 
-        PracticeUtil practiceUtil = new PracticeUtil();
+        PracticeUtils practiceUtils = new PracticeUtils();
         Integer[] intArray = {1, 2, 3, 4};
         String[] stringArray = {"hello", "hallo", "hi"};
-        practiceUtil.printArray(intArray);
-        practiceUtil.printArray(stringArray);
+        practiceUtils.printArray(intArray);
+        practiceUtils.printArray(stringArray);
     }
 }

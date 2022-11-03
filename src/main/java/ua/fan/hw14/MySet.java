@@ -10,19 +10,6 @@ public class MySet<T> {
         array = (T[]) Array.newInstance(t, capacity);
     }
 
-    public static void main(String[] args) {
-        MySet<Integer> mySet = new MySet<>(Integer.class, 3);
-        System.out.println(mySet);
-        mySet.add(5);
-        mySet.add(3);
-        mySet.add(3);
-        mySet.add(4);
-        mySet.add(6);
-        System.out.println(mySet);
-        System.out.println("array[0] = " + mySet.get(0));
-        System.out.println("array[2] = " + mySet.get(2));
-    }
-
     private void add(T t) {
         if (isUnique(t)){
             for (int i = 0; i < array.length; i++) {
@@ -50,5 +37,18 @@ public class MySet<T> {
     @Override
     public String toString() {
         return Arrays.toString(array);
+    }
+
+    public static void main(String[] args) {
+        MySet<Integer> mySet = new MySet<>(Integer.class, 3);
+        System.out.println(mySet);
+        mySet.add(5);
+        mySet.add(3);
+        mySet.add(3);
+        mySet.add(4);
+        mySet.add(6);
+        System.out.println(mySet);
+        System.out.println("array[0] = " + mySet.get(0));
+        System.out.println("array[2] = " + mySet.get(2));
     }
 }
