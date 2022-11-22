@@ -8,7 +8,7 @@ public class Task1 {
         System.out.println("---> TASK 1");
         Student[] students = new Student[3];
         students[0] = new Student("Petro", "Ivanov", "CST-20-1", 4.5);
-        students[1] = new Aspirant("Petro", "Ivanov", "CST-20-1", 4.5);
+        students[1] = new Aspirant("Petro", "Ivanov", "CST-20-1", 4.5, "Art works: Ancient Greece vs Nowadays");
         students[2] = new Student("Ivan", "Ivanov", "CST-20-2", 5);
 
         for (Student student : students) {
