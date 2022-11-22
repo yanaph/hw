@@ -24,7 +24,11 @@ public class FileHandling {
                 readHeader(line);
                 while ((line = bufferedReader.readLine()) != null) {
                     lineIndex++;
-                    catalogueOfDevices.add(createDeviceFromLine(line));
+                    try {
+                        catalogueOfDevices.add(createDeviceFromLine(line));
+                    } catch (NotEnoughDataException e) {
+                        System.out.println(e.getMessage() + " Line index is " + lineIndex);
+                    }
                 }
             } else {
                 throw new NotEnoughDataException("File is empty!");
@@ -33,9 +37,8 @@ public class FileHandling {
             System.out.println("File " + fileName + " not found!");
             System.exit(-1);
         } catch (NotEnoughDataException e) {
-            System.out.println(e.getMessage() + " Line index is " + lineIndex);
-            System.exit(-1);
-        } catch (Exception e){
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
             e.getStackTrace();
         }
         return catalogueOfDevices;
@@ -85,7 +88,7 @@ public class FileHandling {
     private void emptyFieldValidation(String[] characteristics) throws NotEnoughDataException {
         for (String characteristic : characteristics) {
             if (characteristic.isEmpty()) {
-                throw new NotEnoughDataException("Not enough data!");
+                throw new NotEnoughDataException("Not enough data in field!");
             }
         }
     }
