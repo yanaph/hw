@@ -9,7 +9,7 @@ import java.util.List;
 public class ActivityDao {
     protected final static EntityManager ENTITY_MANAGER = HibernateFactoryUtil.getEntityManager();
 
-    public List<Activity> getSMSyByText(String text){
+    public List<Activity> getSMSyByText(String text) {
         return ENTITY_MANAGER.createNativeQuery(
                         "SELECT * FROM activity \n" +
                                 "INNER JOIN activityType ON activityType.id = activity.activityType_id\n" +

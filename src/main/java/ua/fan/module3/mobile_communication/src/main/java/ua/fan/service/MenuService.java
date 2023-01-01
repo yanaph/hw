@@ -73,6 +73,7 @@ public class MenuService {
 
     private void searchSMSbyPhrase() {
         System.out.println("Enter phrase by which you want to find SMS:");
+        SCANNER.nextLine();
         String phrase = SCANNER.nextLine();
         List<Activity> SMSyByText = ACTIVITY_DAO.getSMSyByText(phrase);
         if (!SMSyByText.isEmpty()){
