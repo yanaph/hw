@@ -6,7 +6,6 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.locks.ReentrantLock;
 
 import static ua.fan.hw32.util.RaceInputUtil.BET_HORSE;
 import static ua.fan.hw32.util.RaceInputUtil.HORSE_COUNT;
@@ -16,7 +15,7 @@ import static ua.fan.hw32.util.RaceInputUtil.HORSE_COUNT;
 public class Race {
     private static final int TOTAL_DISTANCE = 1000;
     private static final Random RANDOM = new Random();
-    private ReentrantLock lock = new ReentrantLock();
+    private static final Object LOCK = new Object();
 
     private static int horseNum = 0;
     private Horse horse = new Horse(TOTAL_DISTANCE, RANDOM.nextInt(100, 200));
@@ -54,11 +53,8 @@ public class Race {
     }
 
     private void increaseHorseNum() {
-        lock.lock();
-        try {
+        synchronized (LOCK){
             horseNum++;
-        } finally {
-            lock.unlock();
         }
     }
 
