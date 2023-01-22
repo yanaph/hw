@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>src/main/java/ua/fan/module3/mobile_communication</module>
+        <module>src/main/java/ua/fan/module4/racetrack</module>
     </modules>
     <dependencies>
         <dependency>
