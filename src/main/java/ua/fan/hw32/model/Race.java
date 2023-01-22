@@ -27,28 +27,37 @@ public class Race {
     }
 
     private void printResults() {
-        if (results.get(0).equals(racers.get(BET_HORSE))) {
+        if (results.get(0).equals(racers.get(BET_HORSE - 1))) {
             System.out.println("Congratulations! Your horse won!");
         } else {
-            System.out.printf("Your horse took place #%d%n", results.indexOf(racers.get(BET_HORSE)));
+            System.out.printf("Your horse took place #%d%n", results.indexOf(racers.get(BET_HORSE - 1)) + 1);
         }
 
-        System.out.println("RESULT TABLE:");
+        System.out.println("ALL RACERS TABLE:");
+        for (int i = 0; i < racers.size(); i++) {
+            System.out.printf("#%d - %s%n", (i + 1), racers.get(i));
+        }
+
+        System.out.println("\nRESULT TABLE:");
         for (int i = 0; i < results.size(); i++) {
-            System.out.printf("#%d - %s%n", (i + 1), racers.indexOf(results.get(i)) + 1);
+            System.out.printf("#%d - %s%n", (i + 1), results.get(i));
         }
     }
 
     public void racing() {
-        String horseName = String.format("Horse-%d", racers.size() + 1);
+        String horseName;
+        synchronized (LOCK) {
+            horseName = String.format("Horse-%d", racers.size() + 1);
+        }
         racers.add(horseName);
         int speed = RANDOM.nextInt(100, 200);
         int sleep = RANDOM.nextInt(400, 500);
-        horseRunTheRace(TOTAL_DISTANCE, speed, sleep);
+        horseRunTheRace(speed, sleep);
         results.add(horseName);
     }
 
-    private void horseRunTheRace(int distance_left, int speed, int sleep) {
+    private void horseRunTheRace(int speed, int sleep) {
+        int distance_left = TOTAL_DISTANCE;
         while (distance_left > 0) {
             try {
                 distance_left -= speed;
