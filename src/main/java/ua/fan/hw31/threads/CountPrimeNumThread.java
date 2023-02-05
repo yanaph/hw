@@ -20,7 +20,7 @@ public class CountPrimeNumThread extends Thread {
                 count++;
             }
         }
-        System.out.println("There are " + count + " prime numbers");
+        System.out.println("There are " + count + " prime numbers in " + currentThread().getName());
     }
 
     private boolean isPrime(int number) {

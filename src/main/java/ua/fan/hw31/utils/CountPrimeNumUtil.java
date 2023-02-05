@@ -19,9 +19,9 @@ public class CountPrimeNumUtil {
         CountPrimeNumThread thread2 = new CountPrimeNumThread(list2);
         System.out.println("First sublist: " + Arrays.toString(list1.toArray()));
         thread1.start();
-        thread1.join();
         System.out.println("Second sublist: " + Arrays.toString(list2.toArray()));
         thread2.start();
+        thread1.join();
         thread2.join();
         System.out.println("Total of prime numbers: " + (thread1.getCount() + thread2.getCount()));
     }
