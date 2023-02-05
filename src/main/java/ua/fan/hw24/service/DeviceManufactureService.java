@@ -91,8 +91,11 @@ public class DeviceManufactureService {
         System.out.println("---> GETTING 2nd DEVICE FROM TABLE");
         System.out.println(getDeviceInfo(deviceDao.getById(2)));
 
-        System.out.println("---> DOUBLING PRICE OF THE 2nd ELEMENT...");
-        deviceDao.doubleDevicePrice(2);
+        System.out.println("---> UPDATE THE 2nd ELEMENT...");
+
+        deviceDao.updateDeviceById(new Device("Laptop", "Book Pro", 1599,
+                "Samsung Galaxy Book Pro 360 33,78 cm (13,3 Zoll) Notebook (Intel Core Prozessor i5, 8 GB RAM, 256 GB SSD, Windows 1",
+                true, factoryDao.getById(1)), 2);
         System.out.println(getDeviceInfo(deviceDao.getById(2)));
 
         System.out.println("---> DELETING 2nd DEVICE FROM TABLE");

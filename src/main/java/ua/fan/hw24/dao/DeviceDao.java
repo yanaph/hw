@@ -17,9 +17,15 @@ public class DeviceDao extends AbstractDao<Device> {
         aClass = Device.class;
     }
 
-    public void doubleDevicePrice(Integer id) {
+    public void updateDeviceById(Device device, Integer id) {
         Device deviceToUpdate = ENTITY_MANAGER.find(Device.class, id);
-        deviceToUpdate.setPrice(deviceToUpdate.getPrice() * 2);
+        deviceToUpdate.setDescription(device.getDescription());
+        deviceToUpdate.setFactory(device.getFactory());
+        deviceToUpdate.setPrice(device.getPrice());
+        deviceToUpdate.setType(device.getType());
+        deviceToUpdate.setInStock(device.isInStock());
+        deviceToUpdate.setModelName(device.getModelName());
+        deviceToUpdate.setManufactureDate(device.getManufactureDate());
         ENTITY_MANAGER.merge(deviceToUpdate);
     }
 
