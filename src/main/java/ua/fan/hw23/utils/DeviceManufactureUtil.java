@@ -79,7 +79,7 @@ public class DeviceManufactureUtil {
     public static Factory getFactoryById(Integer id) throws SQLException {
         final String sql = "SELECT * FROM factories WHERE factory_id = ?";
         final PreparedStatement preparedStatement = AbstractDao.getPreparedStatement(sql);
-        preparedStatement.setInt(1, getDeviceById(id).getFactoryId());
+        preparedStatement.setInt(1, id);
         final ResultSet resultSet = preparedStatement.executeQuery();
         Optional<Factory> resultFactory = resultSet.next() ? Optional.of(FactoryDao.mapToObjectFactory(resultSet)) : Optional.empty();
         return resultFactory.get();
@@ -95,16 +95,21 @@ public class DeviceManufactureUtil {
         return resultDevice.get();
     }
 
-    public static void doubleDevicePriceById(Integer id) throws SQLException {
-        final String sql = "UPDATE devices SET price = ? where device_id = ?";
-        Device databaseDevice = getDeviceById(id);
-        databaseDevice.setPrice(databaseDevice.getPrice()*2);
+    public static void updateDeviceById(Device device, Integer id) throws SQLException {
+        final String sql = "UPDATE devices SET type = ?, model = ?, price = ?, manufacture_date = ?, description = ?, " +
+                "in_stock = ?, factory_id = ? where device_id = ?";
         final PreparedStatement statement = AbstractDao.getPreparedStatement(sql);
-        statement.setInt(1, databaseDevice.getPrice());
-        statement.setInt(2, id);
+        statement.setString(1, device.getType());
+        statement.setString(2, device.getModelName());
+        statement.setInt(3, device.getPrice());
+        statement.setDate(4, Date.valueOf(device.getManufactureDate()));
+        statement.setString(5, device.getDescription());
+        statement.setBoolean(6, device.getInStock());
+        statement.setInt(7, device.getFactoryId());
+        statement.setInt(8, id);
         statement.executeUpdate();
         statement.close();
-        System.out.printf("Device's price was successfully doubled! Now it's: %s euro%n", databaseDevice.getPrice());
+        System.out.println("Device's details were successfully updated! Now they are: \n" + getDeviceById(id));
     }
 
     public static void deleteDeviceById(Integer id) throws SQLException {
@@ -116,32 +121,38 @@ public class DeviceManufactureUtil {
         System.out.println("Device was successfully deleted!");
     }
 
-    public static void getDevicesByFactoryName(String factoryName) throws SQLException {
+    public static List<Device> getDevicesByFactoryName(String factoryName) throws SQLException {
         final String sql = "SELECT * FROM factories INNER JOIN devices ON devices.factory_id = factories.factory_id WHERE name = ?";
         final PreparedStatement preparedStatement = AbstractDao.getPreparedStatement(sql);
         preparedStatement.setString(1, factoryName);
         ResultSet resultSet = preparedStatement.executeQuery();
+        ArrayList<Device> deviceArrayList = new ArrayList<>();
         while (resultSet.next()){
-            System.out.printf("---> Factory name: %s%n", resultSet.getString("name"));
-            System.out.printf("Device id: %s%n", resultSet.getInt("device_id"));
-            System.out.printf("Type: %s%n", resultSet.getString("type"));
-            System.out.printf("Model: %s%n", resultSet.getString("model"));
-            System.out.printf("Price: %s%n", resultSet.getInt("price"));
-            System.out.printf("Manufacture date:%s%n", resultSet.getDate("manufacture_date").toLocalDate());
-            System.out.printf("Description: %s%n", resultSet.getString("description"));
-            System.out.printf("In stock: %s%n", resultSet.getBoolean("in_stock") ? "yes" : "no");
+            deviceArrayList.add(
+                    new Device(resultSet.getString("type"),
+                    resultSet.getString("model"),
+                    resultSet.getInt("price"),
+                    resultSet.getDate("manufacture_date").toLocalDate(),
+                    resultSet.getString("description"),
+                    resultSet.getBoolean("in_stock"),
+                    resultSet.getInt("factory_id")));
         }
+        return deviceArrayList;
     }
 
-    public static void getTotalDeviceInfoByFactories() throws SQLException {
+    public static List<Object[]> getTotalDeviceInfoByFactories() throws SQLException {
         String sqlQuery = "SELECT factories.name, COUNT(devices.device_id) AS device_amount, SUM(price) AS summary_price FROM factories INNER JOIN devices USING (factory_id) GROUP BY factories.name";
         PreparedStatement preparedStatement = AbstractDao.getPreparedStatement(sqlQuery);
         ResultSet resultSet = preparedStatement.executeQuery();
+        List<Object[]> statistics = new ArrayList<>();
         while (resultSet.next()) {
-            System.out.printf("---> Factory name: %s%n", resultSet.getString("name"));
-            System.out.printf("Total amount of devices: %s%n", resultSet.getInt("device_amount"));
-            System.out.printf("Summary price: %s euro%n%n", resultSet.getInt("summary_price"));
+            statistics.add(
+                    new Object[]{resultSet.getString("name"),
+                            resultSet.getInt("device_amount"),
+                            resultSet.getInt("summary_price")}
+            );
         }
+        return statistics;
     }
 
 

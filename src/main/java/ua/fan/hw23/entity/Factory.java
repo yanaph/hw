@@ -7,9 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Factory {
-    Integer id;
-    String name;
-    String country;
+    private Integer id;
+    private String name;
+    private String country;
 
     @Override
     public String toString() {

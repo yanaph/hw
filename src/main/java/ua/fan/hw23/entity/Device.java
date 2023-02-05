@@ -8,14 +8,14 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class Device {
-    Integer id;
-    String type;
-    String modelName;
-    Integer price;
-    LocalDate manufactureDate;
-    String description;
-    Boolean inStock;
-    Integer factoryId;
+    private Integer id;
+    private String type;
+    private String modelName;
+    private Integer price;
+    private LocalDate manufactureDate;
+    private String description;
+    private Boolean inStock;
+    private Integer factoryId;
 
     public Device(String type, String modelName, Integer price, LocalDate manufactureDate, String description, Boolean inStock, Integer factoryId) {
         this.type = type;
