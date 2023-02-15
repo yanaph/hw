@@ -13,14 +13,20 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "MainServlet", value = "/MainServlet")
-public class MainServlet extends HttpServlet {
+@WebServlet(name = "UsersListServlet", value = "/UsersListServlet")
+public class UsersListServlet extends HttpServlet {
     private static final List<User> USERS = new ArrayList<>();
     private static final User CURRENT_USER = new User();
 
     @Override
     public void init() {
         System.out.println(getServletName() + "initialized");
+        for (int i = 0; i < 2; i++) {
+            String userIP = String.format("127.0.0.%d", i + 3);
+            User user1 = new User(LocalDateTime.now(), userIP, "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:71.0) Firefox/71.0");
+            USERS.add(user1);
+        }
+
     }
 
     @Override
@@ -31,11 +37,6 @@ public class MainServlet extends HttpServlet {
         responseBody.println("<h1 align=\"center\">Users information</h1>");
 
         String userAgent = req.getHeader("User-Agent");
-        for (int i = 0; i < 2; i++) {
-            String userIP = String.format("127.0.0.%d", i + 3);
-            User user1 = new User(LocalDateTime.now(), userIP, userAgent);
-            USERS.add(user1);
-        }
 
         CURRENT_USER.setDateTime(LocalDateTime.now());
         CURRENT_USER.setUserAgent(userAgent);
@@ -44,7 +45,7 @@ public class MainServlet extends HttpServlet {
         req.setAttribute("usersList", USERS);
         req.setAttribute("currentUser", CURRENT_USER);
 
-        req.getRequestDispatcher("allUsers.jsp").forward(req, resp);
+        req.getRequestDispatcher("usersList.jsp").forward(req, resp);
     }
 
     @Override
