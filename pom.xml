@@ -11,6 +11,7 @@
     <modules>
         <module>src/main/java/ua/fan/module3/mobile_communication</module>
         <module>src/main/java/ua/fan/module4/users_management</module>
+        <module>src/main/java/ua/fan/module4-copy/users_management_system</module>
     </modules>
     <dependencies>
         <dependency>
